@@ -44,10 +44,10 @@ const SidebarCard = () => {
       })}
     >
       <Logo />
-      <Button sx={{ color: 'info.lighter', fontWeight: 700 }}>Upgrade to PRO</Button>
-      <Typography variant="body2" color="info.darker" lineHeight={1.75}>
-        to get access to all features! <br />
-        Connect with Venus World!
+      <Button sx={{ color: 'info.lighter', fontWeight: 700 }}>Netka Management</Button>
+      <Typography variant="body2" color="info.darker" lineHeight={1.75} sx={{ textAlign: 'center' }}>
+        This App Is Developed For <br />
+          Personal And Individual Usage
       </Typography>
     </Stack>
   );

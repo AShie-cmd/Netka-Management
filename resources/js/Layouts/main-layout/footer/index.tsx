@@ -13,9 +13,9 @@ const Footer = () => {
       letterSpacing={0.5}
       fontWeight={500}
     >
-      Made with ❤️ by{' '}
-      <Link href="https://themewagon.com/" target="_blank" rel="noreferrer" fontWeight={600}>
-        {'ThemeWagon'}
+      All Rights Reserved ©️
+      <Link href="#" target="_blank" rel="noreferrer" fontWeight={600}>
+        {'Netka 23'}
       </Link>
     </Typography>
   );
