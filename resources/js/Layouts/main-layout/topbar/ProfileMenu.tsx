@@ -39,11 +39,11 @@ const menuItems: MenuItems[] = [
     //   title: 'Switch Account',
     //   icon: 'material-symbols:switch-account-outline',
     // },
-    {
-        id: 5,
-        title: "Help Center: Netka Office",
-        icon: "material-symbols:help-outline",
-    },
+    // {
+    //     id: 5,
+    //     title: "Help Center: Netka Office",
+    //     icon: "material-symbols:help-outline",
+    // },
     {
         id: 6,
         title: "Logout",
@@ -134,11 +134,11 @@ const ProfileMenu = () => {
 
                 <Divider sx={{ my: 0 }} />
 
-                <Box p={1}>
+                <Box p={1} sx={{ display: "flex" }}>
                     {menuItems.map((item) => {
                         return (
                             <Link
-                                method="post"
+                                method={item.id == 6 ? "post" : "get"}
                                 href={item.id == 6 ? route("logout") : "#"}
                             >
                                 <MenuItem
