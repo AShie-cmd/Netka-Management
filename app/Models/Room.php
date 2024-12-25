@@ -9,4 +9,11 @@ class Room extends Model
 {
     /** @use HasFactory<\Database\Factories\RoomFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

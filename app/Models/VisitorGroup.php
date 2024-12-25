@@ -9,4 +9,11 @@ class VisitorGroup extends Model
 {
     /** @use HasFactory<\Database\Factories\VisitorGroupFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }

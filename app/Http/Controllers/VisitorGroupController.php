@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVisitorGroupRequest;
 use App\Http\Requests\UpdateVisitorGroupRequest;
+use App\Models\Project;
 use App\Models\VisitorGroup;
 
 class VisitorGroupController extends Controller
@@ -62,5 +63,27 @@ class VisitorGroupController extends Controller
     public function destroy(VisitorGroup $visitorGroup)
     {
         //
+    }
+
+    protected function changeGroupsProject($id, $newProjectId = null)
+    {
+        $group = VisitorGroup::find($id);
+        $previousProject = $group->project;
+
+        if (!is_null($previousProject)) {
+            $previousProject->presentations += 1;
+            $previousProject->save();
+        }
+
+        if (is_null($newProjectId)) {
+            $group->project_id = null;
+            $group->save();
+        } elseif (!is_null(Project::find($newProjectId))) {
+            $group->project_id = $newProjectId;
+            $group->save();
+        } else {
+            $group->project_id = null;
+            $group->save();
+        }
     }
 }

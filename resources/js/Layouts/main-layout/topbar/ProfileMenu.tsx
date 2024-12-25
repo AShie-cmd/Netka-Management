@@ -126,7 +126,7 @@ const ProfileMenu = () => {
                                 color="text.secondary"
                                 fontWeight={400}
                             >
-                                jason@example.com
+                                {auth.user.code}
                             </Typography>
                         </Stack>
                     </MenuItem>

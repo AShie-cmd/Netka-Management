@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->string('info');
             $table->enum('status', ['ONAIR', 'WAITING']);
             $table->timestamps();
         });

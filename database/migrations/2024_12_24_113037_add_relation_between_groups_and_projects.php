@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('visitor_groups', function (Blueprint $table) {
-            $table->bigInteger('project_id')->unsigned()->index();
+            $table->bigInteger('project_id')->unsigned()->index()->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->enum('status', ['off', 'on'])->after('number');
         });
