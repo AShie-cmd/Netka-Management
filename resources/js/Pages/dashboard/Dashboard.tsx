@@ -1,17 +1,17 @@
-import Grid from '@mui/material/Grid';
-import Calendar from '@/components/sections/dashboard/calendar';
-import Analytics from '@/components/sections/dashboard/analytics';
-import TotalSpent from '@/components/sections/dashboard/total-spent';
-import CardSecurity from '@/components/sections/dashboard/card-security';
-import ComplexTable from '@/components/sections/dashboard/complex-table';
-import PiChart from '@/components/sections/dashboard/your-pi-chart';
-import History from '@/components/sections/dashboard/history';
-import Revenue from '@/components/sections/dashboard/revenue';
-import Tasks from '@/components/sections/dashboard/tasks';
-import TeamMembers from '@/components/sections/dashboard/team-members';
-import DailyTraffic from '@/components/sections/dashboard/daily-traffic';
-import TrendingNFTs from '@/components/sections/dashboard/trending-nfts';
-import BusinessDesign from '@/components/sections/dashboard/business-design';
+import Grid from "@mui/material/Grid";
+import Calendar from "@/components/sections/dashboard/calendar";
+import Analytics from "@/components/sections/dashboard/analytics";
+import TotalSpent from "@/components/sections/dashboard/total-spent";
+import CardSecurity from "@/components/sections/dashboard/card-security";
+import ComplexTable from "@/components/sections/dashboard/complex-table";
+import PiChart from "@/components/sections/dashboard/your-pi-chart";
+import History from "@/components/sections/dashboard/history";
+import Revenue from "@/components/sections/dashboard/revenue";
+import Tasks from "@/components/sections/dashboard/tasks";
+import TeamMembers from "@/components/sections/dashboard/team-members";
+import DailyTraffic from "@/components/sections/dashboard/daily-traffic";
+import TrendingNFTs from "@/components/sections/dashboard/trending-nfts";
+import BusinessDesign from "@/components/sections/dashboard/business-design";
 import MainLayout from "@/Layouts/main-layout";
 
 const Dashboard = () => {
@@ -19,43 +19,43 @@ const Dashboard = () => {
         <MainLayout>
             <Grid container spacing={2.5}>
                 <Grid item xs={12}>
-                    <Analytics/>
+                    <Analytics />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <TotalSpent/>
+                    <TotalSpent />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Revenue/>
+                    <Revenue />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <CardSecurity/>
+                    <CardSecurity />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <Tasks/>
+                    <Tasks />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <DailyTraffic/>
+                    <DailyTraffic />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <PiChart/>
+                    <PiChart />
                 </Grid>
                 <Grid item xs={12} lg={8} xl={6}>
-                    <TrendingNFTs/>
+                    <TrendingNFTs />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <History/>
+                    <History />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <Calendar/>
+                    <Calendar />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <BusinessDesign/>
+                    <BusinessDesign />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <TeamMembers/>
+                    <TeamMembers />
                 </Grid>
                 <Grid item xs={12} lg={8} xl={6}>
-                    <ComplexTable/>
+                    <ComplexTable />
                 </Grid>
             </Grid>
         </MainLayout>

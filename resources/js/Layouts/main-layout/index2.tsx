@@ -1,16 +1,16 @@
 import { useState, PropsWithChildren } from "react";
 import Stack from "@mui/material/Stack";
-import Sidebar from "@/layouts/main-layout/sidebar";
-import Topbar from "./topbar";
+import Sidebar2 from "@/layouts/main-layout/sidebar/index2";
+import Topbar2 from "./topbar/index2";
 import Footer from "./footer";
 
-const MainLayout = ({ children }: PropsWithChildren) => {
+const MapLayout = ({ children }: PropsWithChildren) => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
     return (
         <Stack width={1} minHeight="100vh">
-            <Sidebar
+            <Sidebar2
                 mobileOpen={mobileOpen}
                 setMobileOpen={setMobileOpen}
                 setIsClosing={setIsClosing}
@@ -22,7 +22,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                 flexGrow={1}
                 width={{ xs: 1, lg: "calc(100% - 290px)" }}
             >
-                <Topbar
+                <Topbar2
                     isClosing={isClosing}
                     mobileOpen={mobileOpen}
                     setMobileOpen={setMobileOpen}
@@ -34,4 +34,4 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     );
 };
 
-export default MainLayout;
+export default MapLayout;

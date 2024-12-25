@@ -18,7 +18,7 @@ interface TopbarProps {
     setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
+const Topbar2 = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
     const handleDrawerToggle = () => {
         if (!isClosing) {
             setMobileOpen(!mobileOpen);
@@ -40,7 +40,7 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
                     disableRipple
                     sx={{
                         lineHeight: 0,
-                        display: { xs: "none", sm: "block", lg: "none" },
+                        display: { xs: "none", sm: "block" },
                     }}
                 >
                     <Image
@@ -51,7 +51,7 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
                     />
                 </ButtonBase>
 
-                <Toolbar sx={{ display: { xm: "block", lg: "none" } }}>
+                <Toolbar sx={{ display: { xm: "block" } }}>
                     <IconButton
                         size="large"
                         edge="start"
@@ -101,4 +101,4 @@ const Topbar = ({ isClosing, mobileOpen, setMobileOpen }: TopbarProps) => {
     );
 };
 
-export default Topbar;
+export default Topbar2;

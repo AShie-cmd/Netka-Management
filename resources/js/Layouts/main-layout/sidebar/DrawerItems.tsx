@@ -1,16 +1,16 @@
-import {fontFamily} from '@/theme/typography';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Stack from '@mui/material/Stack';
-import ButtonBase from '@mui/material/ButtonBase';
-import Typography from '@mui/material/Typography';
-import ListItem from './list-items/ListItem';
-import CollapseListItem from './list-items/CollapseListItem';
-import HorizonLogo from '@/assets/images/logo-main.png';
-import Image from '@/components/base/Image';
-import SidebarCard from './SidebarCard';
-import sitemap from '@/sitemap';
+import { fontFamily } from "@/theme/typography";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import Stack from "@mui/material/Stack";
+import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
+import ListItem from "./list-items/ListItem";
+import CollapseListItem from "./list-items/CollapseListItem";
+import HorizonLogo from "@/assets/images/logo-main.png";
+import Image from "@/components/base/Image";
+import SidebarCard from "./SidebarCard";
+import sitemap from "@/sitemap";
 
 const DrawerItems = (auth) => {
     return (
@@ -28,7 +28,13 @@ const DrawerItems = (auth) => {
                 zIndex={1000}
             >
                 <ButtonBase component={Link} href="/" disableRipple>
-                    <Image src={HorizonLogo} alt="logo" height={44} width={44} sx={{mr: 1.75}}/>
+                    <Image
+                        src={HorizonLogo}
+                        alt="logo"
+                        height={44}
+                        width={44}
+                        sx={{ mr: 1.75 }}
+                    />
                     <Typography
                         variant="h3"
                         textTransform="uppercase"
@@ -40,22 +46,26 @@ const DrawerItems = (auth) => {
                 </ButtonBase>
             </Stack>
 
-            <List component="nav" sx={{mt: 2.5, mb: 10, p: 0, pl: 3}}>
-                {auth.user === false ? (sitemap.filter((item) => item.showWhenLoggedIn !== true).map((route) =>
-                    route.items ? (
-                        <CollapseListItem key={route.id} {...route} />
-                    ) : (
-                        <ListItem key={route.id} {...route} />
-                    ),
-                )) : (
-                    sitemap.filter((item) => item.showWhenLoggedIn !== false).map((route) =>
-                        route.items ? (
-                            <CollapseListItem key={route.id} {...route} />
-                        ) : (
-                            <ListItem key={route.id} {...route} />
-                        ),
-                    )
-                )}
+            <List component="nav" sx={{ mt: 2.5, mb: 10, p: 0, pl: 3 }}>
+                {auth.user === false
+                    ? sitemap
+                          .filter((item) => item.showWhenLoggedIn !== true)
+                          .map((route) =>
+                              route.items ? (
+                                  <CollapseListItem key={route.id} {...route} />
+                              ) : (
+                                  <ListItem key={route.id} {...route} />
+                              ),
+                          )
+                    : sitemap
+                          .filter((item) => item.showWhenLoggedIn !== false)
+                          .map((route) =>
+                              route.items ? (
+                                  <CollapseListItem key={route.id} {...route} />
+                              ) : (
+                                  <ListItem key={route.id} {...route} />
+                              ),
+                          )}
                 {/*{sitemap.filter((item) => item.showWhenLoggedIn !== false).map((route) =>*/}
                 {/*    route.items ? (*/}
                 {/*        <CollapseListItem key={route.id} {...route} />*/}
@@ -66,11 +76,10 @@ const DrawerItems = (auth) => {
             </List>
 
             <Box mt="auto" px={3} pt={15} pb={5}>
-                <SidebarCard/>
+                <SidebarCard />
             </Box>
         </>
-    )
-        ;
+    );
 };
 
 export default DrawerItems;

@@ -8,7 +8,11 @@ interface SidebarProps {
     setIsClosing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Sidebar = ({ mobileOpen, setMobileOpen, setIsClosing }: SidebarProps) => {
+const Sidebar2 = ({
+    mobileOpen,
+    setMobileOpen,
+    setIsClosing,
+}: SidebarProps) => {
     const handleDrawerClose = () => {
         setIsClosing(true);
         setMobileOpen(false);
@@ -23,7 +27,7 @@ const Sidebar = ({ mobileOpen, setMobileOpen, setIsClosing }: SidebarProps) => {
             component="nav"
             width={{ lg: 290 }}
             flexShrink={{ lg: 0 }}
-            display={{ xs: "none", lg: "block" }}
+            display={{ xs: "none" }}
         >
             <Drawer
                 variant="temporary"
@@ -31,20 +35,16 @@ const Sidebar = ({ mobileOpen, setMobileOpen, setIsClosing }: SidebarProps) => {
                 onTransitionEnd={handleDrawerTransitionEnd}
                 onClose={handleDrawerClose}
                 ModalProps={{ keepMounted: true }}
-                sx={{ display: { xs: "block", lg: "none" } }}
+                sx={{ display: { xs: "block" } }}
             >
                 <DrawerItems />
             </Drawer>
 
-            <Drawer
-                variant="permanent"
-                sx={{ display: { xs: "none", lg: "block" } }}
-                open
-            >
+            <Drawer variant="permanent" sx={{ display: { xs: "none" } }} open>
                 <DrawerItems />
             </Drawer>
         </Box>
     );
 };
 
-export default Sidebar;
+export default Sidebar2;
