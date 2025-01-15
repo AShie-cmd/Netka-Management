@@ -1,4 +1,4 @@
-import paths, {rootPaths} from './paths';
+import paths, { rootPaths } from "./paths";
 
 export interface SubMenuItem {
     subheader: string;
@@ -17,15 +17,15 @@ export interface MenuItem {
     avatar?: string;
     active?: boolean;
     items?: SubMenuItem[];
-    showWhenLoggedIn?: boolean
+    showWhenLoggedIn?: boolean;
 }
 
 const sitemap: MenuItem[] = [
     {
         id: 1,
-        subheader: 'Dashboard',
+        subheader: "Dashboard",
         path: rootPaths.root,
-        icon: 'ic:round-home',
+        icon: "ic:round-home",
         active: true,
     },
     // {
@@ -36,29 +36,29 @@ const sitemap: MenuItem[] = [
     // },
     {
         id: 3,
-        subheader: 'Ranking',
-        path: '#!',
-        icon: 'ic:round-bar-chart',
+        subheader: "Ranking",
+        path: "#!",
+        icon: "ic:round-bar-chart",
     },
     {
         id: 4,
-        subheader: 'Map',
-        path: '#!',
-        icon: 'ic:round-dashboard',
+        subheader: "Map",
+        path: "/map",
+        icon: "ic:round-dashboard",
     },
     {
         id: 5,
-        subheader: 'Profile',
-        path: '#!',
-        icon: 'ic:baseline-person',
+        subheader: "Profile",
+        path: "#!",
+        icon: "ic:baseline-person",
     },
     {
         id: 6,
-        subheader: 'Sign In',
+        subheader: "Sign In",
         path: paths.signin,
-        icon: 'ic:round-lock',
+        icon: "ic:round-lock",
         active: true,
-        showWhenLoggedIn: false
+        showWhenLoggedIn: false,
     },
     // {
     //   id: 7,

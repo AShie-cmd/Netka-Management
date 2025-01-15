@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.wave-after,
+.wave-before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+}
+
+.wave-before {
+    background: rgba(255, 255, 255, 1);
+    animation: animate 5s linear infinite;
+}
+
+.wave-after {
+    border-radius: 37%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: translate(-50%, -70%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -70%) rotate(360deg);
+    }
+}
