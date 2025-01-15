@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Laravel\Prompts\table;
-
 return new class extends Migration
 {
     /**
@@ -14,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('visitor_groups', function (Blueprint $table) {
-            $table->bigInteger('project_id')->unsigned()->index()->nullable();
-            $table->foreign('project_id')->references(columns: 'id')->on('projects');
-            $table->enum('status', ['off', 'on'])->after('number');
+            $table->bigInteger('leader_id')->unsigned()->index();
+            $table->foreign(columns: 'leader_id')->references('id')->on('users');
         });
     }
 
@@ -26,9 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         // Schema::table('visitor_groups', function (Blueprint $table) {
-        //     $table->dropForeign(index: ['project_id', 'visitor_groups_project_id_index']);
-        //     $table->dropColumn('project_id');
-        //     $table->dropColumn('status');
+        //     $table->dropForeign(index: ['leader_id', 'visitor_groups_leader_id_index']);
+        //     $table->dropColumn('leader_id');
         // });
     }
 };
