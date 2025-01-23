@@ -18,6 +18,7 @@ class VisitorGroupSeeder extends Seeder
             'gender' => 'male',
             'number' => '20',
             'status' => 'on',
+            'leader_id' => 1
         ]);
 
         VisitorGroup::insert([
@@ -25,6 +26,7 @@ class VisitorGroupSeeder extends Seeder
             'gender' => 'female',
             'number' => '15',
             'status' => 'off',
+            'leader_id' => 1
         ]);
     }
 }

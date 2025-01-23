@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Parkinsans:wght@300..800&family=Vazirmatn:wght@100..900&display=swap");
 
 .wave-after,
 .wave-before {
@@ -30,4 +31,121 @@
     100% {
         transform: translate(-50%, -70%) rotate(360deg);
     }
+}
+
+.wall {
+    /* background-image: url("../js/assets/images/st.jpg") !important; */
+    background-image: repeating-linear-gradient(
+        45deg,
+        #e7e7e7 /* e7e7e7 */ /* e0e0e0 */,
+        #e7e7e7 8px,
+        #f5f7fe 8px,
+        #f5f7fe 18px
+    );
+    border-radius: 0 !important;
+    /* background-size: cover; */
+    /* background-attachment: fixed; */
+}
+
+.stairs-middle {
+    background-image: repeating-linear-gradient(
+        /* d2d2d2, e0e0e0 */ #d2d2d2 0px,
+        #d2d2d2 5px,
+        #f5f7fe 5px,
+        #f5f7fe 14px
+    );
+    height: 54% !important;
+}
+
+.stairs-middle::after {
+    content: "";
+    width: 25px;
+    height: 108px;
+    background-color: #f5f7fe;
+}
+
+.stairs-end {
+    background-image: repeating-linear-gradient(
+        #e0e0e0 0px,
+        #e0e0e0 5px,
+        #f5f7fe 5px,
+        #f5f7fe 14px
+    );
+    height: 75% !important;
+}
+
+.grid-items {
+    height: 78% !important;
+}
+
+.room-free {
+    border: 2px solid #578e7e !important;
+    /* background-color: aqua !important; */
+}
+
+.room-present {
+    border: 2px solid #872341 !important;
+    /* background-color: aqua !important; */
+}
+
+.grid-container {
+    height: 180px !important;
+}
+
+.stairs-end-2 {
+    background-image: repeating-linear-gradient(
+        #e0e0e0 0px,
+        #e0e0e0 5px,
+        #f5f7fe 5px,
+        #f5f7fe 14px
+    );
+    height: 62% !important;
+}
+
+.presentation-text {
+    font-weight: bold;
+}
+/*
+.transform-origin {
+    font-family: "Vazirmatn", serif !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+}
+*/
+
+.text-floor-down {
+    margin-top: 12px !important;
+}
+
+.text-floor-up {
+    margin-bottom: 12px !important;
+}
+
+.floor-number {
+    font-family: "Vazirmatn", "sanFransico" !important;
+    font-style: normal !important;
+    font-optical-sizing: auto !important;
+    font-weight: 700 !important;
+}
+
+.floor-text {
+    color: #919293 !important;
+    font-family: "Vazirmatn", "sanFransico" !important;
+    font-style: normal !important;
+    font-optical-sizing: auto !important;
+    font-weight: 300 !important;
+}
+
+.divider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.divider {
+    height: 4px;
+    width: 100%;
+    border-radius: 50%;
+    background-color: #e7e4e4;
 }
