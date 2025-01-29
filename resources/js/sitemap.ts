@@ -44,13 +44,19 @@ const sitemap: MenuItem[] = [
         id: 4,
         subheader: "Map",
         path: "/map",
-        icon: "ic:round-dashboard",
+        icon: "ic:twotone-map",
     },
     {
         id: 5,
-        subheader: "Management",
+        subheader: "Groups Management",
         path: "/management",
-        icon: "ic:round-lock",
+        icon: "ic:twotone-groups-2",
+    },
+    {
+        id: 8,
+        subheader: "Projects Management",
+        path: "/management/projects/",
+        icon: "ic:twotone-build-circle",
     },
     {
         id: 6,

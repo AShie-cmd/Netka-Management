@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\VisitorGroupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/management/groups/delete/{id}', [ManagementController::class, 'deleteGroups'])->name('management.leaders.remove');
     Route::get('/management/groups/{id}', [ManagementController::class, 'show'])->name('management.show');
     Route::get('/management/getAllFreeLeaders', [ManagementController::class, 'getAllFreeLeaders']);
+
+    Route::prefix('/management/projects')->group(function () {
+        Route::get('/', [ProjectsController::class, 'index']);
+    });
 });
 
 //Route::get('/dashboard', function () {
