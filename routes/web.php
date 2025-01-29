@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisitorGroupController;
 use Illuminate\Foundation\Application;
@@ -18,11 +19,20 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('dashboard/Dashboard');
-})->middleware('auth')->name('dashboard');
+})->middleware(middleware: 'auth')->name('dashboard');
 
-Route::get('/map', function () {
+Route::get('/map', action: function () {
     return Inertia::render('dashboard/Map');
-})->middleware('auth')->name('map');
+})->middleware(middleware: 'auth')->name(name: 'map');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/management', [ManagementController::class, 'index'])->name('management');
+    Route::post('/management/groups', [ManagementController::class, 'storeGroups'])->name('management.leaders.add');
+    Route::post('/management/groups/{id}', [ManagementController::class, 'updateGroups'])->name('management.leaders.add');
+    Route::post('/management/groups/delete/{id}', [ManagementController::class, 'deleteGroups'])->name('management.leaders.remove');
+    Route::get('/management/groups/{id}', [ManagementController::class, 'show'])->name('management.show');
+    Route::get('/management/getAllFreeLeaders', [ManagementController::class, 'getAllFreeLeaders']);
+});
 
 //Route::get('/dashboard', function () {
 //    return Inertia::render('Dashboard');

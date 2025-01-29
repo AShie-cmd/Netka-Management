@@ -3,6 +3,18 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@600&family=Parkinsans:wght@300..800&family=Vazirmatn:wght@100..900&display=swap");
 
+* {
+    font-family: "Vazirmatn" !important;
+    font-style: normal !important;
+    font-optical-sizing: auto !important;
+}
+
+.vazir {
+    font-family: "Vazirmatn", "sanFransico" !important;
+    font-style: normal !important;
+    font-optical-sizing: auto !important;
+}
+
 .wave-after,
 .wave-before {
     content: "";

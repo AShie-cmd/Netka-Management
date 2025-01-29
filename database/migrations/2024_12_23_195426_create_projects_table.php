@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('room_id')->unsigned()->index();
             $table->string('name');
-            $table->enum('status', ['ONAIR', 'WAITING']);
-            $table->integer('presentations');
+            $table->enum('status', ['ONAIR', 'WAITING'])->default('WAITING');
+            $table->integer('presentations')->default(0);
             $table->timestamps();
 
             $table->foreign('room_id')->references('id')->on('rooms');

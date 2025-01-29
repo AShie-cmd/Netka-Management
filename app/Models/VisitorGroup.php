@@ -16,4 +16,9 @@ class VisitorGroup extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function leader()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

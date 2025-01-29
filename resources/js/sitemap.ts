@@ -48,12 +48,18 @@ const sitemap: MenuItem[] = [
     },
     {
         id: 5,
+        subheader: "Management",
+        path: "/management",
+        icon: "ic:round-lock",
+    },
+    {
+        id: 6,
         subheader: "Profile",
         path: "#!",
         icon: "ic:baseline-person",
     },
     {
-        id: 6,
+        id: 7,
         subheader: "Sign In",
         path: paths.signin,
         icon: "ic:round-lock",
