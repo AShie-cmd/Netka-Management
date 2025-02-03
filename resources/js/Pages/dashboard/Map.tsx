@@ -510,8 +510,14 @@ const Map = () => {
                                     sx={{
                                         height: "100%",
                                         borderRadius: "10px",
+                                        fontSize: "7px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
                                     }}
-                                ></Paper>
+                                >
+                                    Netka Office
+                                </Paper>
                             </Grid2>
                         </Grid2>
                         {/* </Paper> */}

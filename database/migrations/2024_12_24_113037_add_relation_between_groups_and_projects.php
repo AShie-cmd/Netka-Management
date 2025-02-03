@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('visitor_groups', function (Blueprint $table) {
             $table->bigInteger('project_id')->unsigned()->index()->nullable();
             $table->foreign('project_id')->references(columns: 'id')->on('projects');
-            $table->enum('status', ['off', 'on', 'without-leader'])->after('number');
+            $table->enum('group_status', ['off', 'on', 'without-leader'])->after('number');
         });
     }
 

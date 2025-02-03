@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id();
+            $table->id('project_id');
             $table->bigInteger('room_id')->unsigned()->index();
-            $table->string('name');
-            $table->enum('status', ['ONAIR', 'WAITING'])->default('WAITING');
+            $table->string('project_name');
+            $table->enum('project_status', ['ONAIR', 'WAITING'])->default('WAITING');
             $table->integer('presentations')->default(0);
             $table->timestamps();
 

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VisitorGroupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/management/getAllFreeLeaders', [ManagementController::class, 'getAllFreeLeaders']);
 
     Route::prefix('/management/projects')->group(function () {
-        Route::get('/', [ProjectsController::class, 'index']);
+        Route::get('/', [ProjectController::class, 'index']);
+        Route::get('/rooms/{id}', [ProjectController::class, 'roomProjects']);
+        Route::get('/groups/{id}', [ProjectController::class, 'showGroup']);
+        Route::post('/set/{groupId}/{roomId}/{projectId}', [ProjectController::class, 'store']);
+        Route::post('/unset/{groupId}', [ProjectController::class, 'unset']);
     });
 });
 

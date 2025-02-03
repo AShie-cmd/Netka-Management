@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('visitor_groups', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->string('school_name');
             $table->enum(column: 'gender', allowed: ['male', 'female']);
             $table->integer('number')->nullable();

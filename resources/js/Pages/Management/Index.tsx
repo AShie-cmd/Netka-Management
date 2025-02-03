@@ -28,8 +28,8 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import GroupsTable from "@/Components/sections/dashboard/complex-table/Groups";
 import { router, useForm } from "@inertiajs/react";
-import { group } from "console";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 //this is the style of the Modal
 const style = {
@@ -133,7 +133,11 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     );
 }
 
-const Index = ({ groups, leaders }) => {
+const Index = ({ groups, leaders, onGroups }) => {
+    const finalOnGroups = Object.keys(onGroups).map((key) => [
+        key,
+        onGroups[key],
+    ]);
     const [open, setOpen] = useState(false);
     const [roomName, setRoomName] = useState("");
     const [leadersP, setLeadersP] = useState([]);
@@ -194,6 +198,7 @@ const Index = ({ groups, leaders }) => {
             ...values,
             [key]: value,
         }));
+        console.log(values);
     }
 
     function handleValuesChangePrime(e) {
@@ -207,6 +212,7 @@ const Index = ({ groups, leaders }) => {
             ...values,
             [key]: value,
         }));
+        console.log(values);
     }
 
     function handleGroupChange(e) {
@@ -215,6 +221,14 @@ const Index = ({ groups, leaders }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setData({
+            school_name_p: "",
+            gender_p: "",
+            leader_p: 0,
+            school_name: "",
+            gender: "",
+            leader_id: "unchanged",
+        });
         post("/management/groups");
     };
 
@@ -222,6 +236,11 @@ const Index = ({ groups, leaders }) => {
         try {
             e.preventDefault();
             post("/management/groups/" + groupId);
+            setValues({
+                school_name: "",
+                gender: "",
+                leader_id: 0,
+            });
             handleClose();
         } catch (error) {
             console.log(error);
@@ -261,7 +280,7 @@ const Index = ({ groups, leaders }) => {
                         {/* <Typography variant="h4" className="vazir">
                             گروهان تماشاگر
                         </Typography> */}
-                        <GroupsTable rows={groups} />
+                        <GroupsTable rows={groups} leaderName={true} />
                     </Paper>
                 </Grid2>
                 <Grid2 size={4}>
@@ -286,20 +305,6 @@ const Index = ({ groups, leaders }) => {
                                         ایجاد گروه تماشاگر جدید
                                     </Typography>
                                 </div>
-                                {/* {errors && (
-                                        <Alert
-                                            severity="error"
-                                            variant="filled"
-                                            sx={{ marginBottom: "45px" }}
-                                        >
-
-                                            <div>{errors.school_name_p}</div>
-
-
-                                            <div>{errors.leader_p}</div>
-
-                                        </Alert>,
-                                    )} */}
 
                                 {(errors.school_name_p || errors.gender_p) && (
                                     <div>
@@ -447,14 +452,17 @@ const Index = ({ groups, leaders }) => {
                                             <option value={0}>
                                                 انتخاب گروه
                                             </option>
-                                            {groups.length !== 0 ? (
-                                                groups.map((group) => {
+                                            {finalOnGroups.length !== 0 ? (
+                                                finalOnGroups.map((group) => {
                                                     return (
                                                         <option
-                                                            key={group.id}
-                                                            value={group.id}
+                                                            key={group[1].id}
+                                                            value={group[1].id}
                                                         >
-                                                            {group.school_name}
+                                                            {
+                                                                group[1]
+                                                                    .school_name
+                                                            }
                                                         </option>
                                                     );
                                                 })

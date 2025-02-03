@@ -8,7 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconifyIcon from "@/components/base/IconifyIcon";
 import GroupsDataTable from "./GroupsDataTable";
 
-const GroupsTable = ({ rows }) => {
+const GroupsTable = ({ rows, leaderName }) => {
     const [searchText, setSearchText] = useState("");
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +53,11 @@ const GroupsTable = ({ rows }) => {
             </Stack>
 
             <Box mt={{ xs: 1.25, sm: 1 }} height={513}>
-                <GroupsDataTable searchText={searchText} groups={rows} />
+                <GroupsDataTable
+                    searchText={searchText}
+                    groups={rows}
+                    leaderName={leaderName}
+                />
             </Box>
         </Box>
     );
