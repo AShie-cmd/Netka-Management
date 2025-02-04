@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Project;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,14 +15,10 @@ class MapRoomStatusChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $project_id;
     /**
      * Create a new event instance.
      */
-    public function __construct($project_id)
-    {
-        $this->project_id = $project_id;
-    }
+    public function __construct(public int $project_id) {}
 
     /**
      * Get the channels the event should broadcast on.
@@ -38,7 +35,7 @@ class MapRoomStatusChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'project_id' => $this->project_id
+            'project' => Project::findOrFail($this->project_id)
         ];
     }
 }

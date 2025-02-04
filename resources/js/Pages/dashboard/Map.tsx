@@ -47,12 +47,22 @@ const Map = () => {
     const [roomName, setRoomName] = useState("");
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [changedProject, setChangedProject] = useState();
 
-    Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
-        // Handle the received message data (e.g., update chat UI)
-        console.log(data);
-        // .. update your chat interface with the received message
-    });
+    useEffect(() => {
+        Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
+            // Handle the received message data (e.g., update chat UI)
+            console.log(data);
+            setChangedProject(data.project);
+            // .. update your chat interface with the received message
+        });
+    }, []);
+
+    // Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
+    //     // Handle the received message data (e.g., update chat UI)
+    //     console.log(data);
+    //     // .. update your chat interface with the received message
+    // });
 
     return (
         <MapLayout>
@@ -288,6 +298,7 @@ const Map = () => {
                         </Paper>
                     </Grid2>
                 </Grid2>
+
                 <Grid2 container spacing={1.2} columns={18}>
                     <Grid2 size={9}></Grid2>
                     <Grid2
@@ -315,6 +326,7 @@ const Map = () => {
                     </Grid2>
                     <Grid2 size={5}></Grid2>
                 </Grid2>
+
                 {/* second */}
                 <Grid2
                     container
@@ -324,7 +336,7 @@ const Map = () => {
                     sx={{ height: "200px", marginTop: "-15px" }}
                 >
                     <Grid2 size={3}>
-                        <Paper
+                        <Paper //Netka
                             variant="outlined"
                             sx={{
                                 // borderRadius: 0,
@@ -430,7 +442,7 @@ const Map = () => {
                         </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        {/* <Paper
                             variant="outlined"
                             className="grid-items"
                             sx={{
@@ -442,8 +454,8 @@ const Map = () => {
                                 width: "100%",
                             }}
                         >
-                            10
-                        </Paper>
+
+                        </Paper> */}
                     </Grid2>
                     <Grid2 size={1} sx={{ position: "relative" }}>
                         <Paper
@@ -776,7 +788,7 @@ const Map = () => {
                             }}
                         ></Paper>
                     </Grid2>
-                    <Grid2 size={2}>
+                    <Grid2 size={4}>
                         <Paper
                             variant="outlined"
                             className="grid-items"
@@ -790,7 +802,7 @@ const Map = () => {
                             1
                         </Paper>
                     </Grid2>
-                    <Grid2 size={2}>
+                    {/* <Grid2 size={2}>
                         <Paper
                             variant="outlined"
                             className="grid-items"
@@ -803,7 +815,7 @@ const Map = () => {
                         >
                             4
                         </Paper>
-                    </Grid2>
+                    </Grid2> */}
                 </Grid2>
                 <Grid2 container spacing={1.2} columns={18}>
                     <Grid2 size={9}></Grid2>
@@ -909,7 +921,7 @@ const Map = () => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        {/* <Paper
                             variant="outlined"
                             className="grid-items"
                             sx={{
@@ -922,7 +934,7 @@ const Map = () => {
                             }}
                         >
                             11
-                        </Paper>
+                        </Paper> */}
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper
