@@ -19,7 +19,7 @@ import { relative } from "path";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import DesktopWindowsTwoToneIcon from "@mui/icons-material/DesktopWindowsTwoTone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import NorthRoundedIcon from "@mui/icons-material/NorthRounded";
 import MapTwoToneIcon from "@mui/icons-material/MapTwoTone";
@@ -40,11 +40,19 @@ const style = {
     borderRadius: "8px",
 };
 
+import "@/echo";
+
 const Map = () => {
     const [open, setOpen] = useState(false);
     const [roomName, setRoomName] = useState("");
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
+        // Handle the received message data (e.g., update chat UI)
+        console.log(data);
+        // .. update your chat interface with the received message
+    });
 
     return (
         <MapLayout>

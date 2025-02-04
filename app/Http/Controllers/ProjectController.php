@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MapRoomStatusChanged;
 use App\Models\Room;
 use App\Models\User;
 use Inertia\Inertia;
@@ -125,6 +126,7 @@ class ProjectController extends Controller
 
             //project
             $project->project_status = 'ONAIR';
+            event(new MapRoomStatusChanged($project->id));
 
             $project->save();
             $group->save();
