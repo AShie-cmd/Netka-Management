@@ -43,22 +43,35 @@ const style = {
 import "@/echo";
 import axios from "axios";
 
-const Map = ({ projects }) => {
+const Map = ({ projects, megaRooms }) => {
     const [open, setOpen] = useState(false);
     const [roomName, setRoomName] = useState(0);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [changedProject, setChangedProject] = useState();
+    // const [changedProject, setChangedProject] = useState();
     const [projectValue, setProjectValue] = useState([]);
-    const [values, setValues] = useState();
+    const [values, setValues] = useState(projects);
+    const [megaRoomsValues, setMegaRoomsValues] = useState(megaRooms);
 
     useEffect(() => {
         Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
             // Handle the received message data (e.g., update chat UI)
-            console.log(data);
-            setChangedProject(data.project);
+            // console.log(data);
+            // setChangedProject(data.project);
+            setValues(data.projects);
             // .. update your chat interface with the received message
         });
+
+        Echo.channel("map.megaRoom").listen(
+            "MapMegaRoomStatusChanged",
+            (data) => {
+                // Handle the received message data (e.g., update chat UI)
+                console.log(data);
+                // setChangedProject(data.project);
+                setMegaRoomsValues(data.megaRooms);
+                // .. update your chat interface with the received message
+            },
+        );
     }, []);
 
     useEffect(() => {
@@ -110,6 +123,7 @@ const Map = ({ projects }) => {
                 >
                     <Grid2 size={3}>
                         <Paper //Netkargah
+                            className={`${megaRoomsValues[1].status === "NOTFULL" ? `` : `room-present`}`}
                             variant="outlined"
                             sx={{
                                 // borderRadius: 0,
@@ -232,7 +246,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 1
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[0].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 width: "100%",
                                 // borderRadius: 0,
@@ -255,14 +269,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>1</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[0].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[0].project_name}
                                 </span>
-                                <span>{projects[1].project_name}</span>
+                                <span
+                                    className={`${values[1].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[1].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -285,7 +306,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 6
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[10].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 width: "100%",
                                 // borderRadius: 0,
@@ -307,13 +328,19 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>6</span>
                                 <span
+                                    className={`${values[10].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[10].project_name}
                                 </span>
-                                <span className="presentation-text">
+                                <span
+                                    className={`${values[11].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
                                     {projects[11].project_name}
                                 </span>
                             </div>
@@ -386,7 +413,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper //Room 5
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[8].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 width: "100%",
@@ -408,14 +435,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>5</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[8].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[8].project_name}
                                 </span>
-                                <span> {projects[9].project_name}</span>
+                                <span
+                                    className={`${values[9].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[9].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -438,7 +472,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 3
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[4].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 width: "100%",
                                 // borderRadius: 0,
@@ -461,14 +495,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>3</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[4].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[4].project_name}
                                 </span>
-                                <span>{projects[5].project_name}</span>
+                                <span
+                                    className={`${values[5].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[5].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -528,6 +569,7 @@ const Map = ({ projects }) => {
                 >
                     <Grid2 size={3}>
                         <Paper //Notka
+                            className={`${megaRoomsValues[0].status === "NOTFULL" ? `` : `room-present`}`}
                             variant="outlined"
                             sx={{
                                 // borderRadius: 0,
@@ -564,10 +606,14 @@ const Map = ({ projects }) => {
                                     variant="h6"
                                     sx={{ fontWeight: "light" }}
                                 >
-                                    ظرفیت:
+                                    درصد حضور:
                                 </Typography>
                                 <Typography variant="h5">
-                                    {/* {getPercentage()} */}
+                                    {getPercentage(
+                                        megaRoomsValues[0].people,
+                                        megaRoomsValues[0].capacity,
+                                    )}
+                                    %
                                 </Typography>
                             </div>
                         </Paper>
@@ -593,7 +639,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 7
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[12].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -616,14 +662,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>7</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[12].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[12].project_name}
                                 </span>
-                                <span>{projects[13].project_name}</span>
+                                <span
+                                    className={`${values[13].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[13].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -785,7 +838,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 4
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[6].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -808,14 +861,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>4</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[6].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[6].project_name}
                                 </span>
-                                <span> {projects[7].project_name}</span>
+                                <span
+                                    className={`${values[7].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[7].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -838,7 +898,7 @@ const Map = ({ projects }) => {
                     <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper // Room 2
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${values[2].room_status === "WAITING" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -861,14 +921,21 @@ const Map = ({ projects }) => {
                             >
                                 <span style={{ marginBottom: "4px" }}>2</span>
                                 <span
-                                    className="presentation-text"
+                                    className={`${values[2].project_status === "WAITING" ? `` : `presentation-text`}`}
                                     style={{
                                         fontSize: "17px",
                                     }}
                                 >
                                     {projects[2].project_name}
                                 </span>
-                                <span> {projects[3].project_name}</span>
+                                <span
+                                    className={`${values[3].project_status === "WAITING" ? `` : `presentation-text`}`}
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[3].project_name}
+                                </span>
                             </div>
                             <Stack
                                 justifyContent={"center"}
@@ -1020,9 +1087,9 @@ const Map = ({ projects }) => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2}>
-                        <Paper // 🎬
+                        <Paper // 🎬 3
                             variant="outlined"
-                            className="grid-items room-present"
+                            className={`grid-items ${megaRoomsValues[5].status === "NOTFULL" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -1033,13 +1100,13 @@ const Map = ({ projects }) => {
                                 alignItems: "center",
                             }}
                         >
-                            🎬
+                            🎬 ۳
                         </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper //  🎬
+                        <Paper //  🎬 2
                             variant="outlined"
-                            className="grid-items room-present"
+                            className={`grid-items ${megaRoomsValues[4].status === "NOTFULL" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -1050,7 +1117,7 @@ const Map = ({ projects }) => {
                                 alignItems: "center",
                             }}
                         >
-                            🎬
+                            🎬 ۲
                         </Paper>
                     </Grid2>
                     <Grid2 size={1}>
@@ -1095,9 +1162,9 @@ const Map = ({ projects }) => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={4}>
-                        <Paper
+                        <Paper // NAGHALIKA
                             variant="outlined"
-                            className="grid-items"
+                            className={`grid-items ${megaRoomsValues[2].status === "NOTFULL" ? `` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 width: "100%",
@@ -1134,9 +1201,15 @@ const Map = ({ projects }) => {
                                     variant="h6"
                                     sx={{ fontWeight: "light" }}
                                 >
-                                    ظرفیت:
+                                    درصد حضور:
                                 </Typography>
-                                <Typography variant="h5">۳۰٪</Typography>
+                                <Typography variant="h5">
+                                    {getPercentage(
+                                        megaRoomsValues[2].people,
+                                        megaRoomsValues[2].capacity,
+                                    )}
+                                    %
+                                </Typography>
                             </div>
                         </Paper>
                     </Grid2>
@@ -1283,9 +1356,9 @@ const Map = ({ projects }) => {
                         </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper // 🎬
+                        <Paper // 🎬 1
                             variant="outlined"
-                            className="grid-items room-free"
+                            className={`grid-items ${megaRoomsValues[3].status === "NOTFULL" ? `room-free` : `room-present`}`}
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -1298,7 +1371,7 @@ const Map = ({ projects }) => {
                                 alignItems: "center",
                             }}
                         >
-                            🎬
+                            🎬 ۱
                         </Paper>
                     </Grid2>
                     <Grid2 size={1} sx={{ position: "relative" }}>

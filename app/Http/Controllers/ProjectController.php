@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MapMegaRoomStatusChanged;
 use App\Events\MapRoomStatusChanged;
 use App\Models\Room;
 use App\Models\User;
@@ -78,14 +79,16 @@ class ProjectController extends Controller
             $project->save();
 
             $projectOfRoom = $room->projects;
-            $statusOfRoom = 'ONAIR';
+            $statusOfRoom = 'WAITING';
             foreach ($projectOfRoom as $project) {
-                if ($project->project_status == 'WAITING') {
-                    $statusOfRoom = 'WAITING';
+                if ($project->project_status == 'ONAIR') {
+                    $statusOfRoom = 'ONAIR';
                 }
             }
             $room->room_status = $statusOfRoom;
             $room->save();
+
+            event(new MapRoomStatusChanged($project->id));
         } elseif ($group->mega_room_id != null) {
             $megaRoom = MegaRoom::findOrFail($group->mega_room_id);
 
@@ -96,6 +99,8 @@ class ProjectController extends Controller
                 $megaRoom->status = 'NOTFULL';
             }
             $megaRoom->save();
+
+            event(new MapMegaRoomStatusChanged($megaRoom->id));
         }
 
         $group->group_status = 'waiting';
@@ -143,13 +148,13 @@ class ProjectController extends Controller
             $room->save();
         }
 
-        $projectOfRoom = $room->projects;
+        // $projectOfRoom = $room->projects;
         $statusOfRoom = 'ONAIR';
-        foreach ($projectOfRoom as $project) {
-            if ($project->project_status == 'WAITING') {
-                $statusOfRoom = 'WAITING';
-            }
-        }
+        // foreach ($projectOfRoom as $project) {
+        //     if ($project->project_status == 'WAITING') {
+        //         $statusOfRoom = 'WAITING';
+        //     }
+        // }
 
         foreach ($group as Auth::user()->groups) {
             if ($group->group_status === 'waiting') {
@@ -193,7 +198,7 @@ class ProjectController extends Controller
             $group->group_status = 'on';
 
             //project
-            // event(new MapRoomStatusChanged($project->id)); //TODO making event for this
+            event(new MapMegaRoomStatusChanged($room->id));
 
             $group->save();
             $room->save();
