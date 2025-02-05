@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\VisitorGroupController;
@@ -22,9 +23,9 @@ Route::get('/', function () {
     return Inertia::render('dashboard/Dashboard');
 })->middleware(middleware: 'auth')->name('dashboard');
 
-Route::get('/map', action: function () {
-    return Inertia::render('dashboard/Map');
-})->middleware(middleware: 'auth')->name(name: 'map');
+Route::get('/map', [MapController::class, 'index'])->middleware(middleware: 'auth')->name(name: 'map');
+Route::get('/map/project/{id}', [MapController::class, 'getProject']);
+Route::get('/map/projects', [MapController::class, 'getProjects']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/management', [ManagementController::class, 'index'])->name('management');
@@ -37,9 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/management/projects')->group(function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::get('/rooms/{id}', [ProjectController::class, 'roomProjects']);
+        Route::get('/megaRoomsWithGroups/{id}', [ProjectController::class, 'getMegaRoomWithGroups']);
+        Route::get('/megaRooms/{id}', [ProjectController::class, 'getMegaRoom']);
         Route::get('/groups/{id}', [ProjectController::class, 'showGroup']);
         Route::post('/set/{groupId}/{roomId}/{projectId}', [ProjectController::class, 'store']);
-        Route::post('/unset/{groupId}', [ProjectController::class, 'unset']);
+        Route::post('/setOnMegaRoom/{groupId}/{megaRoomId}', [ProjectController::class, 'storeOnMegaRoom']);
+        Route::post('/unset/{groupId}', action: [ProjectController::class, 'unset']);
     });
 });
 

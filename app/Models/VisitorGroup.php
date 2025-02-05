@@ -19,6 +19,11 @@ class VisitorGroup extends Model
 
     public function leader()
     {
-        return $this->belongsTo(related: User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function megaRoom()
+    {
+        return $this->belongsTo(MegaRoom::class);
     }
 }

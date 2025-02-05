@@ -153,9 +153,11 @@ const Index = ({ groups, leaders, onGroups }) => {
         school_name_p: "",
         gender_p: "",
         leader_p: 0,
+        number_p: 0,
         school_name: "",
         gender: "",
         leader_id: "unchanged",
+        number: 0,
     });
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -189,6 +191,7 @@ const Index = ({ groups, leaders, onGroups }) => {
         school_name: "",
         gender: "",
         leader_id: 0,
+        number: 0,
     });
 
     function handleValuesChange(e) {
@@ -225,9 +228,11 @@ const Index = ({ groups, leaders, onGroups }) => {
             school_name_p: "",
             gender_p: "",
             leader_p: 0,
+            number_p: 0,
             school_name: "",
             gender: "",
             leader_id: "unchanged",
+            number: 0,
         });
         post("/management/groups");
     };
@@ -240,6 +245,7 @@ const Index = ({ groups, leaders, onGroups }) => {
                 school_name: "",
                 gender: "",
                 leader_id: 0,
+                number: 0,
             });
             handleClose();
         } catch (error) {
@@ -315,6 +321,7 @@ const Index = ({ groups, leaders, onGroups }) => {
                                         >
                                             <div>{errors.school_name_p}</div>
                                             <div>{errors.gender_p}</div>
+                                            <div>{errors.number_p}</div>
                                         </Alert>
                                     </div>
                                 )}
@@ -337,10 +344,30 @@ const Index = ({ groups, leaders, onGroups }) => {
                                             label=" * نام مدرسه"
                                             variant="outlined"
                                             sx={{
-                                                marginBottom: "15px",
+                                                marginBottom: "37px",
                                             }}
                                             onChange={handleValuesChange}
                                             value={data.school_name_p}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: "100%",
+                                        }}
+                                        // onSubmit={handleSubmit}
+                                    >
+                                        {/* {errors.school_name_p && (
+                                            <div>{errors.school_name_p}</div>
+                                        )} */}
+                                        <TextField
+                                            id="number_p"
+                                            label=" * تعداد"
+                                            variant="outlined"
+                                            sx={{
+                                                marginBottom: "17px",
+                                            }}
+                                            onChange={handleValuesChange}
+                                            value={data.number_p}
                                         />
                                     </FormControl>
                                     <Grid2 container size={12} spacing={2}>
@@ -556,10 +583,30 @@ const Index = ({ groups, leaders, onGroups }) => {
                                         label=" * نام مدرسه"
                                         variant="outlined"
                                         sx={{
-                                            marginBottom: "15px",
+                                            marginBottom: "37px",
                                         }}
                                         onChange={handleValuesChangePrime}
                                         value={values.school_name}
+                                    />
+                                </FormControl>
+                                <FormControl
+                                    sx={{
+                                        width: "100%",
+                                    }}
+                                    // onSubmit={handleSubmit}
+                                >
+                                    {errors.number && (
+                                        <div>{errors.number}</div>
+                                    )}
+                                    <TextField
+                                        id="number"
+                                        label=" * تعداد"
+                                        variant="outlined"
+                                        sx={{
+                                            marginBottom: "17px",
+                                        }}
+                                        onChange={handleValuesChangePrime}
+                                        value={values.number}
                                     />
                                 </FormControl>
                                 <Grid2 container size={12} spacing={2}>

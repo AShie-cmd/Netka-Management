@@ -41,13 +41,16 @@ const style = {
 };
 
 import "@/echo";
+import axios from "axios";
 
-const Map = () => {
+const Map = ({ projects }) => {
     const [open, setOpen] = useState(false);
-    const [roomName, setRoomName] = useState("");
+    const [roomName, setRoomName] = useState(0);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [changedProject, setChangedProject] = useState();
+    const [projectValue, setProjectValue] = useState([]);
+    const [values, setValues] = useState();
 
     useEffect(() => {
         Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
@@ -58,11 +61,25 @@ const Map = () => {
         });
     }, []);
 
+    useEffect(() => {
+        axios
+            .get("/map/project/" + roomName)
+            .then((result) => {
+                setProjectValue(result.data);
+                console.log(result.data);
+            })
+            .catch((e) => console.log(e));
+    }, [roomName]);
+
     // Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
     //     // Handle the received message data (e.g., update chat UI)
     //     console.log(data);
     //     // .. update your chat interface with the received message
     // });
+
+    function getPercentage(number: number, total: number) {
+        return Math.round((number / total) * 100);
+    }
 
     return (
         <MapLayout>
@@ -92,7 +109,7 @@ const Map = () => {
                     sx={{ height: "200px" }}
                 >
                     <Grid2 size={3}>
-                        <Paper
+                        <Paper //Netkargah
                             variant="outlined"
                             sx={{
                                 // borderRadius: 0,
@@ -112,9 +129,9 @@ const Map = () => {
                                 }}
                                 className="artka-notka-text"
                             >
-                                🎨 آرتکا
+                                🧪 نِتکارگاه
                             </Typography>
-                            <div
+                            {/* <div
                                 className="capacity"
                                 style={{
                                     // position: "relative",
@@ -170,7 +187,26 @@ const Map = () => {
                                         ></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* <div
+                                style={{
+                                    position: "absolute",
+                                    display: "flex",
+                                    gap: "8px",
+                                    bottom: 0,
+                                    left: 0,
+                                    marginLeft: "15px",
+                                    marginBottom: "12px",
+                                }}
+                            >
+                                <Typography
+                                    variant="h6"
+                                    sx={{ fontWeight: "light" }}
+                                >
+                                    ظرفیت:
+                                </Typography>
+                                <Typography variant="h5">۵۰٪</Typography>
+                            </div> */}
                         </Paper>
                     </Grid2>
                     <Grid2 size={1} sx={{ position: "relative" }}>
@@ -193,32 +229,110 @@ const Map = () => {
                         stairs
                     </Paper> */}
                     </Grid2>
-                    <Grid2 size={2}>
-                        <Paper
+                    <Grid2 size={2} sx={{ position: "relative" }}>
+                        <Paper // Room 1
                             variant="outlined"
-                            className="grid-items"
-                            sx={{
-                                // borderRadius: 0,
-                                textAlign: "center",
-                                height: "69%",
-                                width: "100%",
-                            }}
-                        >
-                            9
-                        </Paper>
-                    </Grid2>
-                    <Grid2 size={2}>
-                        <Paper
-                            variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 width: "100%",
                                 // borderRadius: 0,
                                 textAlign: "center",
                                 height: "80%",
+                                position: "absolute",
+                                top: 0,
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            8
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>1</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[0].project_name}
+                                </span>
+                                <span>{projects[1].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(1);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
+                        </Paper>
+                    </Grid2>
+                    <Grid2 size={2} sx={{ position: "relative" }}>
+                        <Paper // Room 6
+                            variant="outlined"
+                            className="grid-items room-free"
+                            sx={{
+                                width: "100%",
+                                // borderRadius: 0,
+                                textAlign: "center",
+                                height: "80%",
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                position: "absolute",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>6</span>
+                                <span
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[10].project_name}
+                                </span>
+                                <span className="presentation-text">
+                                    {projects[11].project_name}
+                                </span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(6);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
                     <Grid2 size={1}>
@@ -269,32 +383,109 @@ const Map = () => {
                             }}
                         ></Paper>
                     </Grid2>
-                    <Grid2 size={2}>
-                        <Paper
+                    <Grid2 size={2} sx={{ position: "relative" }}>
+                        <Paper //Room 5
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 // borderRadius: 0,
                                 width: "100%",
                                 textAlign: "center",
                                 height: "80%",
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                position: "absolute",
                             }}
                         >
-                            5
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>5</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[8].project_name}
+                                </span>
+                                <span> {projects[9].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(5);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
-                    <Grid2 size={2}>
-                        <Paper
+                    <Grid2 size={2} sx={{ position: "relative" }}>
+                        <Paper // Room 3
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 width: "100%",
                                 // borderRadius: 0,
                                 textAlign: "center",
                                 height: "80%",
+                                flexDirection: "column",
+                                position: "absolute",
+                                display: "flex",
+                                top: 0,
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            4
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>3</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[4].project_name}
+                                </span>
+                                <span>{projects[5].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(3);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
                 </Grid2>
@@ -310,14 +501,14 @@ const Map = () => {
                         }}
                     >
                         <Typography
-                            variant="h4"
+                            variant="h3"
                             sx={{ marginRight: "3px", display: "inline-block" }}
                             className="floor-number"
                         >
                             دو
                         </Typography>
                         <Typography
-                            variant="h4"
+                            variant="h3"
                             sx={{ marginLeft: "3px", display: "inline-block" }}
                             className="floor-text"
                         >
@@ -336,7 +527,7 @@ const Map = () => {
                     sx={{ height: "200px", marginTop: "-15px" }}
                 >
                     <Grid2 size={3}>
-                        <Paper //Netka
+                        <Paper //Notka
                             variant="outlined"
                             sx={{
                                 // borderRadius: 0,
@@ -361,49 +552,23 @@ const Map = () => {
                             <div
                                 style={{
                                     position: "absolute",
+                                    display: "flex",
+                                    gap: "8px",
                                     bottom: 0,
                                     left: 0,
-                                    width: "45px",
-                                    height: "45px",
-                                    // background: "#000",
-                                    border: "3px solid #fff",
-                                    boxShadow: "0 0 0 3px #4973ff",
-                                    borderRadius: "50%",
-                                    overflow: "hidden",
-                                    marginBottom: "10px",
-                                    marginLeft: "10px",
+                                    marginLeft: "15px",
+                                    marginBottom: "12px",
                                 }}
-                                id="circle"
                             >
-                                <div
-                                    id="wave"
-                                    style={{
-                                        position: "relative",
-                                        width: "100%",
-                                        height: "100%",
-                                        background: "#4973ff",
-                                        borderRadius: "50%",
-                                        boxShadow:
-                                            "inset 0 0 10px rgba(0, 0, 0, .5)",
-                                    }}
+                                <Typography
+                                    variant="h6"
+                                    sx={{ fontWeight: "light" }}
                                 >
-                                    <div
-                                        className="wave-before"
-                                        style={{
-                                            width: "250%",
-                                            height: "250%",
-                                            borderRadius: "49.5%",
-                                        }}
-                                    ></div>
-                                    <div
-                                        className="wave-after"
-                                        style={{
-                                            width: "250%",
-                                            height: "250%",
-                                            borderRadius: "41%",
-                                        }}
-                                    ></div>
-                                </div>
+                                    ظرفیت:
+                                </Typography>
+                                <Typography variant="h5">
+                                    {/* {getPercentage()} */}
+                                </Typography>
                             </div>
                         </Paper>
                     </Grid2>
@@ -426,9 +591,9 @@ const Map = () => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        <Paper // Room 7
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -436,13 +601,50 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            11
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>7</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[12].project_name}
+                                </span>
+                                <span>{projects[13].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(7);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        {/* <Paper
+                        <Paper // 🚫
                             variant="outlined"
                             className="grid-items"
                             sx={{
@@ -452,10 +654,15 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                border: "none",
+                                backgroundColor: "rgba(255, 255, 255, 0.5)",
                             }}
                         >
-
-                        </Paper> */}
+                            <Typography variant="h5">🚫 </Typography>
+                        </Paper>
                     </Grid2>
                     <Grid2 size={1} sx={{ position: "relative" }}>
                         <Paper
@@ -509,8 +716,14 @@ const Map = () => {
                                     sx={{
                                         height: "100%",
                                         borderRadius: "10px",
+                                        fontSize: "13px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
                                     }}
-                                ></Paper>
+                                >
+                                    مدیریت
+                                </Paper>
                             </Grid2>
                             <Grid2 size={3}>
                                 <Paper
@@ -522,7 +735,9 @@ const Map = () => {
                                         justifyContent: "center",
                                         borderRadius: "10px",
                                     }}
-                                ></Paper>
+                                >
+                                    اتاق استراحت
+                                </Paper>
                             </Grid2>
                             <Grid2 size={1}>
                                 <Paper
@@ -530,13 +745,24 @@ const Map = () => {
                                     sx={{
                                         height: "100%",
                                         borderRadius: "10px",
-                                        fontSize: "7px",
+                                        fontSize: "13px",
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
                                     }}
                                 >
-                                    Netka Office
+                                    <div>
+                                        <span
+                                            style={{
+                                                display: "flex",
+                                                fontSize: "15px",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            نتکا
+                                        </span>
+                                        <span>دفتر</span>
+                                    </div>
                                 </Paper>
                             </Grid2>
                         </Grid2>
@@ -557,9 +783,9 @@ const Map = () => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        <Paper // Room 4
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -567,15 +793,52 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            7
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>4</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[6].project_name}
+                                </span>
+                                <span> {projects[7].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(4);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        <Paper // Room 2
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -583,9 +846,46 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                flexDirection: "column",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            6
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.001px",
+                                }}
+                            >
+                                <span style={{ marginBottom: "4px" }}>2</span>
+                                <span
+                                    className="presentation-text"
+                                    style={{
+                                        fontSize: "17px",
+                                    }}
+                                >
+                                    {projects[2].project_name}
+                                </span>
+                                <span> {projects[3].project_name}</span>
+                            </div>
+                            <Stack
+                                justifyContent={"center"}
+                                alignContent={"center"}
+                                sx={{
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => {
+                                        setRoomName(2);
+                                        handleOpen();
+                                    }}
+                                >
+                                    <DesktopWindowsTwoToneIcon />
+                                </IconButton>
+                            </Stack>
                         </Paper>
                     </Grid2>
                 </Grid2>
@@ -627,7 +927,7 @@ const Map = () => {
                     spacing={1.2}
                     columns={18}
                     className="grid-container"
-                    sx={{ height: "200px", marginTop: "30px" }}
+                    sx={{ height: "200px", marginTop: "32px" }}
                 >
                     <Grid2 size={3}>
                         <Paper
@@ -720,31 +1020,37 @@ const Map = () => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2}>
-                        <Paper
+                        <Paper // 🎬
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-present"
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
                                 height: "80%",
                                 width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            3
+                            🎬
                         </Paper>
                     </Grid2>
-                    <Grid2 size={2}>
-                        <Paper
+                    <Grid2 size={2} sx={{ position: "relative" }}>
+                        <Paper //  🎬
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-present"
                             sx={{
-                                width: "100%",
                                 // borderRadius: 0,
                                 textAlign: "center",
-                                height: "80%",
+                                height: "69%",
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            2
+                            🎬
                         </Paper>
                     </Grid2>
                     <Grid2 size={1}>
@@ -797,9 +1103,41 @@ const Map = () => {
                                 width: "100%",
                                 textAlign: "center",
                                 height: "80%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                position: "relative",
                             }}
                         >
-                            1
+                            <Typography
+                                variant="h4"
+                                sx={{
+                                    marginRight: "3px",
+                                    display: "inline-block",
+                                }}
+                                className="artka-notka-text"
+                            >
+                                🧌 نقالی خوانی
+                            </Typography>
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    display: "flex",
+                                    gap: "8px",
+                                    bottom: 0,
+                                    left: 0,
+                                    marginLeft: "15px",
+                                    marginBottom: "12px",
+                                }}
+                            >
+                                <Typography
+                                    variant="h6"
+                                    sx={{ fontWeight: "light" }}
+                                >
+                                    ظرفیت:
+                                </Typography>
+                                <Typography variant="h5">۳۰٪</Typography>
+                            </div>
                         </Paper>
                     </Grid2>
                     {/* <Grid2 size={2}>
@@ -817,6 +1155,7 @@ const Map = () => {
                         </Paper>
                     </Grid2> */}
                 </Grid2>
+
                 <Grid2 container spacing={1.2} columns={18}>
                     <Grid2 size={9}></Grid2>
                     <Grid2 size={4}>
@@ -827,26 +1166,28 @@ const Map = () => {
                                 display: "flex",
                             }}
                         >
-                            <Typography
-                                variant="h4"
-                                sx={{
-                                    marginRight: "3px",
-                                    display: "inline-block",
-                                }}
-                                className="floor-number"
-                            >
-                                یک
-                            </Typography>
-                            <Typography
-                                variant="h4"
-                                sx={{
-                                    marginLeft: "3px",
-                                    display: "inline-block",
-                                }}
-                                className="floor-text"
-                            >
-                                طبقه
-                            </Typography>
+                            <span>
+                                <Typography
+                                    variant="h3"
+                                    sx={{
+                                        marginRight: "3px",
+                                        display: "inline-block",
+                                    }}
+                                    className="floor-number"
+                                >
+                                    یک
+                                </Typography>
+                                <Typography
+                                    variant="h3"
+                                    sx={{
+                                        marginLeft: "3px",
+                                        display: "inline-block",
+                                    }}
+                                    className="floor-text"
+                                >
+                                    طبقه
+                                </Typography>
+                            </span>
                         </div>
                     </Grid2>
                     <Grid2 size={5}></Grid2>
@@ -857,7 +1198,7 @@ const Map = () => {
                     spacing={1.2}
                     columns={18}
                     className="grid-container"
-                    sx={{ height: "200px", marginTop: "-29px" }}
+                    sx={{ height: "200px", marginTop: "-32px" }}
                 >
                     <Grid2 size={3}>
                         <Paper
@@ -921,7 +1262,7 @@ const Map = () => {
                         ></Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        {/* <Paper
+                        <Paper // 🚫
                             variant="outlined"
                             className="grid-items"
                             sx={{
@@ -931,15 +1272,20 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                border: "none",
+                                backgroundColor: "rgba(255, 255, 255, 0.5)",
                             }}
                         >
-                            11
-                        </Paper> */}
+                            <Typography variant="h5">🚫 </Typography>
+                        </Paper>
                     </Grid2>
                     <Grid2 size={2} sx={{ position: "relative" }}>
-                        <Paper
+                        <Paper // 🎬
                             variant="outlined"
-                            className="grid-items"
+                            className="grid-items room-free"
                             sx={{
                                 // borderRadius: 0,
                                 textAlign: "center",
@@ -947,9 +1293,12 @@ const Map = () => {
                                 position: "absolute",
                                 bottom: 0,
                                 width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            10
+                            🎬
                         </Paper>
                     </Grid2>
                     <Grid2 size={1} sx={{ position: "relative" }}>
@@ -998,7 +1347,7 @@ const Map = () => {
                         }}
                     ></Paper>
                 </Grid2> */}
-                    <Grid2 size={2} sx={{ position: "relative" }}>
+                    {/* <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper
                             variant="outlined"
                             className="grid-items room-free"
@@ -1013,8 +1362,8 @@ const Map = () => {
                         >
                             7
                         </Paper>
-                    </Grid2>
-                    <Grid2 size={2} sx={{ position: "relative" }}>
+                    </Grid2> */}
+                    {/* <Grid2 size={2} sx={{ position: "relative" }}>
                         <Paper
                             variant="outlined"
                             className="grid-items room-present"
@@ -1051,7 +1400,7 @@ const Map = () => {
                             >
                                 خودکاوی، تیوری بازی
                             </span> */}
-                                <div
+                    {/* <div
                                     style={{
                                         display: "flex",
                                         flexDirection: "column",
@@ -1070,24 +1419,9 @@ const Map = () => {
                                         خودکاوی
                                     </span>
                                     <span>تیوری بازی</span>
-                                </div>
-                                {/* <Stack
-                                direction="row"
-                                spacing={0.65}
-                                justifyContent={"center"}
-                                alignContent={"center"}
-                                divider={
-                                    <Divider orientation="vertical" flexItem />
-                                }
-                            >
-                                <IconButton color="success" aria-label="delete">
-                                    <CancelPresentationIcon />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <CoPresentIcon />
-                                </IconButton>
-                            </Stack> */}
-                                <Stack
+                                </div> */}
+
+                    {/* <Stack
                                     justifyContent={"center"}
                                     alignContent={"center"}
                                     sx={{
@@ -1102,10 +1436,32 @@ const Map = () => {
                                     >
                                         <DesktopWindowsTwoToneIcon />
                                     </IconButton>
-                                </Stack>
-                            </div>
-                        </Paper>
-                    </Grid2>
+                                </Stack> */}
+                    {/* <Stack
+                                    direction="row"
+                                    spacing={0.65}
+                                    justifyContent={"center"}
+                                    alignContent={"center"}
+                                    divider={
+                                        <Divider
+                                            orientation="vertical"
+                                            flexItem
+                                        />
+                                    }
+                                >
+                                    <IconButton
+                                        color="success"
+                                        aria-label="delete"
+                                    >
+                                        <CancelPresentationIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="delete">
+                                        <CoPresentIcon />
+                                    </IconButton>
+                                </Stack> */}
+                    {/* </div>
+                    </Paper>
+                    </Grid2>  */}
                 </Grid2>
             </div>
 
@@ -1141,15 +1497,39 @@ const Map = () => {
                             variant="h6"
                             component="h2"
                         >
-                            {roomName}
+                            {roomName} غرفه شماره
                         </Typography>
-                        <Typography
-                            id="transition-modal-description"
-                            sx={{ mt: 2 }}
+                        <Stack
+                            direction="row"
+                            spacing={1}
+                            sx={{ marginTop: "10px" }}
                         >
-                            Duis mollis, est non commodo luctus, nisi erat
-                            porttitor ligula.
-                        </Typography>
+                            {projectValue.length != 0 ? (
+                                projectValue.map((project) => {
+                                    return (
+                                        <Paper
+                                            sx={{
+                                                backgroundColor:
+                                                    "color(display-p3 0.9686 0.9647 1)",
+                                                width: "100%",
+                                            }}
+                                        >
+                                            {project.project_name}
+                                            {project.group_id != null ? (
+                                                <span>
+                                                    در حال ارائه برای گروه{" "}
+                                                    {project.group_name}
+                                                </span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </Paper>
+                                    );
+                                })
+                            ) : (
+                                <></>
+                            )}
+                        </Stack>
                     </Box>
                 </Fade>
             </Modal>

@@ -22,7 +22,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
         editable: false,
         align: "left",
         flex: 2,
-        minWidth: 160,
+        minWidth: 140,
         renderHeader: () => (
             <Typography
                 variant="body2"
@@ -46,6 +46,14 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
                 </Typography>
             </Stack>
         ),
+    },
+    {
+        field: "number",
+        headerName: "تعداد",
+        editable: false,
+        align: "left",
+        flex: 2,
+        minWidth: 60,
     },
     {
         field: "gender",
@@ -132,7 +140,15 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
         editable: false,
         align: "left",
         flex: 2,
-        minWidth: 160,
+        minWidth: 140,
+    },
+    {
+        field: "mega_room_name",
+        headerName: "نام ابر غرفه",
+        editable: false,
+        align: "left",
+        flex: 2,
+        minWidth: 140,
     },
     {
         field: "name",
@@ -140,7 +156,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
         editable: false,
         align: "left",
         flex: 2,
-        minWidth: 120,
+        minWidth: 110,
     },
     // {
     //     field: "action",
@@ -194,6 +210,14 @@ const columnsWithoutLeaderName: GridColDef<(typeof rows)[number]>[] = [
                 </Typography>
             </Stack>
         ),
+    },
+    {
+        field: "number",
+        headerName: "تعداد",
+        editable: false,
+        align: "left",
+        flex: 2,
+        minWidth: 60,
     },
     {
         field: "gender",
@@ -288,7 +312,15 @@ const columnsWithoutLeaderName: GridColDef<(typeof rows)[number]>[] = [
         editable: false,
         align: "left",
         flex: 2,
-        minWidth: 60,
+        minWidth: 30,
+    },
+    {
+        field: "mega_room_name",
+        headerName: "نام ابر غرفه",
+        editable: false,
+        align: "left",
+        flex: 2,
+        minWidth: 30,
     },
     // {
     //     field: "action",
