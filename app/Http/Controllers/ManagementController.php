@@ -66,19 +66,18 @@ class ManagementController extends Controller
         return Inertia::render('Management/Index', ['groups' => $groups_final, 'leaders' => $leaders, 'onGroups' => $onGroups]);
     }
 
-    public function getAllFreeLeaders()
+    public function getAllFreeLeaders($leaderId)
     {
+
         $leaders = User::where('role', 'leader')->where('status',  'off')->get();
+        if ($leaderId) {
+            $leader = User::find($leaderId);
+            if ($leader->status === 'on') {
+                $leaders->put(0, $leader);
+            }
+        }
         return $leaders->toJson();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create()
-    // {
-    //     //
-    // }
 
     /**
      * Store a newly created resource in storage.
@@ -116,14 +115,6 @@ class ManagementController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function updateGroups(Request $request, $id)
@@ -131,6 +122,7 @@ class ManagementController extends Controller
         try {
             $request->validate(rules: [
                 'school_name' => ['max:50'],
+                'number' => ['required', 'numeric']
                 // 'leader' => ['number'],
             ]);
             $group = VisitorGroup::find($id);
@@ -159,14 +151,6 @@ class ManagementController extends Controller
         } catch (Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function deleteGroups($id)

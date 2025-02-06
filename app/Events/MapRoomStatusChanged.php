@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Room;
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Broadcasting\Channel;
@@ -42,9 +43,12 @@ class MapRoomStatusChanged implements ShouldBroadcast
             ->orderBy('id')
             ->get();
 
+        $rooms = Room::all()->sortBy('info')->toArray();
+
         return [
-            'project' => Project::findOrFail($this->project_id),
-            'projects' => $projects
+            // 'project' => Project::findOrFail($this->project_id),
+            'projects' => $projects,
+            'rooms' => $rooms
         ];
     }
 }

@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
@@ -268,14 +268,20 @@ const Index = ({ groups, leaders, onGroups }) => {
             .get("/management/groups/" + groupId)
             .then((result) => setValues(result.data))
             .catch((e) => console.log(e));
-        setOpen(true);
-        axios
-            .get("/management/getAllFreeLeaders/")
-            .then((result) => {
-                setLeadersP(result.data);
-            })
-            .catch((e) => console.log(e));
     };
+
+    useEffect(() => {
+        if (values.school_name !== "") {
+            axios
+                .get("/management/getAllFreeLeaders/" + values.leader_id)
+                .then((result) => {
+                    setLeadersP(result.data);
+                })
+                .catch((e) => console.log(e));
+            setOpen(true);
+        }
+    }, [values]);
+
     const handleClose = () => setOpen(false);
 
     return (

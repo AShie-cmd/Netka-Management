@@ -66,7 +66,7 @@ const Map = ({ projects, megaRooms }) => {
             "MapMegaRoomStatusChanged",
             (data) => {
                 // Handle the received message data (e.g., update chat UI)
-                console.log(data);
+                // console.log(data);
                 // setChangedProject(data.project);
                 setMegaRoomsValues(data.megaRooms);
                 // .. update your chat interface with the received message

@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/management/groups/{id}', [ManagementController::class, 'updateGroups'])->name('management.leaders.add');
     Route::post('/management/groups/delete/{id}', [ManagementController::class, 'deleteGroups'])->name('management.leaders.remove');
     Route::get('/management/groups/{id}', [ManagementController::class, 'show'])->name('management.show');
-    Route::get('/management/getAllFreeLeaders', [ManagementController::class, 'getAllFreeLeaders']);
+    Route::get('/management/getAllFreeLeaders/{leaderId?}', [ManagementController::class, 'getAllFreeLeaders']);
 
     Route::prefix('/management/projects')->group(function () {
         Route::get('/', [ProjectController::class, 'index']);

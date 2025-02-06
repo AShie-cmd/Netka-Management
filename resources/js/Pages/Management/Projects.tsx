@@ -28,6 +28,7 @@ import ScienceTwoToneIcon from "@mui/icons-material/ScienceTwoTone";
 import TheaterComedyTwoToneIcon from "@mui/icons-material/TheaterComedyTwoTone";
 import MovieCreationTwoToneIcon from "@mui/icons-material/MovieCreationTwoTone";
 import SlideshowTwoToneIcon from "@mui/icons-material/SlideshowTwoTone";
+import "@/echo";
 
 const style = {
     position: "absolute",
@@ -59,8 +60,6 @@ export default function Test({
         onGroups[key],
     ]);
 
-    const finalRooms = Object.keys(rooms).map((key) => [key, rooms[key]]);
-
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [open3, setOpen3] = useState(false);
@@ -82,6 +81,31 @@ export default function Test({
         useState([]);
     const [groupValues, setGroupValues] = useState([]);
     const [groupValues2, setGroupValues2] = useState([]);
+
+    const [values, setValues] = useState(rooms);
+    const [megaRoomsValues, setMegaRoomsValues] = useState(megaRooms);
+    const finalRooms = Object.keys(values).map((key) => [key, values[key]]);
+
+    useEffect(() => {
+        Echo.channel("map").listen("MapRoomStatusChanged", (data) => {
+            // Handle the received message data (e.g., update chat UI)
+            // console.log(data);
+            // setChangedProject(data.project);
+            setValues(data.rooms);
+            // .. update your chat interface with the received message
+        });
+
+        Echo.channel("map.megaRoom").listen(
+            "MapMegaRoomStatusChanged",
+            (data) => {
+                // Handle the received message data (e.g., update chat UI)
+                // console.log(data);
+                // setChangedProject(data.project);
+                setMegaRoomsValues(data.megaRooms);
+                // .. update your chat interface with the received message
+            },
+        );
+    }, []);
 
     const handleOpen = () => {
         axios
@@ -341,8 +365,6 @@ export default function Test({
                                                                 sx={{
                                                                     backgroundColor:
                                                                         "#E82561",
-                                                                    // background:
-                                                                    //     "linear-gradient(90deg, #E82561 50%, color(srgb 0.9149 0.9299 0.9684) 50%)",
                                                                     width: "20px",
                                                                     height: "20px",
                                                                 }}
@@ -358,7 +380,7 @@ export default function Test({
                                     );
                                 })}
 
-                                {megaRooms.map((mRoom) => {
+                                {megaRoomsValues.map((mRoom) => {
                                     return (
                                         <Grid2
                                             size={6}
@@ -638,7 +660,7 @@ export default function Test({
                 </Grid2>
             </Grid2>
 
-            <Modal
+            <Modal //Modal1
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
@@ -666,6 +688,7 @@ export default function Test({
                             sx={{ marginTop: "10px" }}
                         >
                             {roomProjectValues.map((project) => {
+                                console.log(project);
                                 return project.project_status !== "ONAIR" ? (
                                     <Paper
                                         sx={{
@@ -702,7 +725,18 @@ export default function Test({
                                             width: "100%",
                                         }}
                                     >
-                                        {project.project_name}
+                                        {project.project_name} <br />
+                                        <span>گروه حاضر </span>
+                                        <br />
+                                        نام‌: {project.group_name}
+                                        <br />
+                                        جنسیت:{" "}
+                                        {project.group_gender == "female"
+                                            ? "دخترانه"
+                                            : "پسرانه"}
+                                        <br />
+                                        تعداد: {project.group_number}
+                                        <br />
                                     </Paper>
                                 );
                             })}
@@ -711,7 +745,7 @@ export default function Test({
                 </Fade>
             </Modal>
 
-            <Modal
+            <Modal //Modal 2
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open2}
@@ -825,7 +859,7 @@ export default function Test({
                 </Fade>
             </Modal>
 
-            <Modal
+            <Modal //Modal 3
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open3}

@@ -59,8 +59,14 @@ class ProjectController extends Controller
 
     public function roomProjects($id)
     {
-        $room = Room::find($id);
-        return $room->projects;
+        // $room = Room::find($id);
+        $projects = DB::table('rooms')->where('rooms.id', (int) $id)
+            ->leftJoin('projects', 'projects.room_id', '=', 'rooms.id')
+            ->leftJoin('visitor_groups', 'visitor_groups.project_id', '=', 'projects.id')
+            ->select('rooms.id as room_id', 'projects.*', 'visitor_groups.school_name as group_name', 'visitor_groups.gender as group_gender', 'visitor_groups.number as group_number')
+            ->orderBy('projects.id')
+            ->get();
+        return $projects;
     }
 
     /**

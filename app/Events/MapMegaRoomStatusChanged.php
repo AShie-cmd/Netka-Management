@@ -33,6 +33,7 @@ class MapMegaRoomStatusChanged implements ShouldBroadcast
             ->orderBy('id')
             ->get();
 
+
         return [
             'megaRooms' => $mega_rooms
         ];
